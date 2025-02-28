@@ -1,0 +1,50 @@
+@colorprincipal: #83dbfbda;
+@colortexto: #000;
+@colorhovers: #ffffff;
+@colorfondo : #dbf1f5;
+@import 'colocacion.less';
+@import 'hovers.less';
+@import 'mixins.less';
+@import 'grids.less';
+@import 'media.less';
+header{
+    background-color: @colorprincipal;
+   color: @colortexto
+}
+
+a{
+    color: @colortexto ;
+    text-decoration: none;
+    margin: 15px;
+}
+
+h2{
+    background-color: @colorprincipal;
+    text-align: center;
+}
+
+.div1p{
+    .bordes();
+    .centrado();
+}
+
+.div2p{
+    .bordes();
+    .centrado();
+
+}
+
+.div3p{
+    .bordes();
+    .centrado();
+}
+
+footer{
+    background-color: @colorprincipal;
+}
+body{
+    font-family: serif;
+    background-color: @colorfondo;
+   
+}
+
