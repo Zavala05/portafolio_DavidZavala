@@ -2,6 +2,7 @@ import path, {resolve} from "node:path";
 import { defineConfig } from "vite";
 import * as glob from 'glob';
 import htmlPurge from "vite-plugin-purgecss"
+import mkcert from 'vite-plugin-mkcert'; 
 
 
 const obtenerEntradasHTML = ()=>{
