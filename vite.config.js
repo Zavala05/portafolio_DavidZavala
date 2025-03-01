@@ -1,17 +1,14 @@
 import path, {resolve} from "node:path";
-import * as glob from 'glob';
-
-
-
 import { defineConfig } from "vite";
-
-import htmlPurge from "vite"
+import * as glob from 'glob';
+import htmlPurge from "vite-plugin-purgecss"
 
 
 const obtenerEntradasHTML = ()=>{
     return Object.fromEntries(
 
-        [...glob.sync('./**/*.html', {ignore: ["./dist/**","./node_modules/**"]}
+        [...glob
+            .sync('./**/*.html', {ignore: ["./dist/**","./node_modules/**"]}
 
         ).map(
             fileData=>[
