@@ -4,7 +4,7 @@ import * as glob from "glob";
 import htmlPurge from "vite-plugin-purgecss";
 
 const obtenerEntradaHtml = () => {
-    return Object.fromEntries(
+    const entradas = Object.fromEntries(
         glob.sync('./**/*.html', { ignore: ['dist/', 'node_modules/'] }).map(
             fileData => [
                 fileData.slice(0, fileData.length - path.extname(fileData).length),
@@ -12,27 +12,29 @@ const obtenerEntradaHtml = () => {
             ]
         )
     );
+    console.log(entradas); 
+    return entradas;
 };
 
 export default defineConfig({
-    appType: "mpa", 
-    base: process.env.DEPLOY_BASE_URL,
+    appType: "mpa",
+    base: process.env.DEPLOY_BASE_URL || '/',
     build: {
         rollupOptions: {
             input: obtenerEntradaHtml(),
-        }
+        },
     },
     css: {
         preprocessorOptions: {
             less: {
-                javascriptEnabled: true, 
+                javascriptEnabled: true,
             },
         },
     },
     plugins: [
         htmlPurge({
-            content: [".//.html", ".//.js"], 
-            safelist: ["active", "show"], 
-        })
-    ]
+            content: ['./**/*.html', './**/*.js'],
+            safelist: ['active', 'show'],
+        }),
+    ],
 });
