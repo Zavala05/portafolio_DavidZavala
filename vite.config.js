@@ -1,37 +1,38 @@
-import path, {resolve} from "node:path";
+import path, { resolve } from "node:path";
 import { defineConfig } from "vite";
-import * as glob from 'glob';
-import htmlPurge from "vite-plugin-purgecss"
-import mkcert from 'vite-plugin-mkcert'; 
+import * as glob from "glob";
+import htmlPurge from "vite-plugin-purgecss";
 
-
-const obtenerEntradasHTML = ()=>{
+const obtenerEntradaHtml = () => {
     return Object.fromEntries(
-
-        [...glob
-            .sync('./**/*.html', {ignore: ["./dist/**","./node_modules/**"]}
-
-        ).map(
-            fileData=>[
-                fileData.slice(0, fileData.leght - path.extname(fileData).length),
+        glob.sync(".//.html", { ignore: ["./dist/", "./node_modules/*"] }).map(
+            fileData => [
+                fileData.slice(0, fileData.length - path.extname(fileData).length),
                 resolve(__dirname, fileData)
             ]
         )
-    
-    ]
-        
-);
-}
+    );
+};
 
 export default defineConfig({
-    appType: 'mpa',
+    appType: "mpa", 
     base: process.env.DEPLOY_BASE_URL,
     build: {
         rollupOptions: {
-            input: obtenerEntradasHTML()
+            input: obtenerEntradaHtml(),
         }
     },
-    pluggins:[
-        htmlPurge({})
-    ]
+    css: {
+        preprocessorOptions: {
+            less: {
+                javascriptEnabled: true, // Habilita características avanzadas de Less
+            },
+        },
+    },
+    plugins: [
+        htmlPurge({
+            content: [".//.html", ".//.js"], 
+            safelist: ["active", "show"], 
+        })
+    ]
 });
